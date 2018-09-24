@@ -1,16 +1,24 @@
+$$DONE!$$
 web_scraping for information:
     same as before just import into sqlite3
     take that info and push to gpread file
 
 
+$$DONE!$$
 build database again with sqlite3
     so that it can be used cross platform
         embed automatic push/pull to/from gspread
 
     tables of separate assemblies
+        cols:
+            id PRIMARY KEY,title,name,district,party,phone_num,email,leg_page,last,first,img_link
     tables for grades for separate assemblies
+        cols:
+            id PRIMARY KEY, last_updated, donations, rhetoric, voting
 
     use same id scheme: [assemb#][sen/rep][last[0:3]][district#]
+
+
 
 figure out how to do it with PILLOW
     1. create config file
@@ -29,4 +37,4 @@ create gui:
 
 
 package it all up
-    - with sqlite3, tkinter, the font/s, gspread, os
+    - with sqlite3, tkinter, the font/s, gspread, os, requests, bs4:BeautifulSoup, time

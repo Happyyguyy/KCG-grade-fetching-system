@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "kcg-legislator-report-card",
+  "private_key_id": "fbc798c310a93fd0b7f0beb7de104be791771412",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEuwIBADANBgkqhkiG9w0BAQEFAASCBKUwggShAgEAAoIBAQCgd7QKDZ1CSaA+\nsM/Bhd2KKO5k7NHx6TgHf3ZKiV6iJCL/HWdgAx9dDeZLTv4lQ2gAZgJdPW4FRVgd\noAfb/OmymgWX6jOCMYwdvQSJ5bZu8PyGfFXXn7dYXzNGv9Pn+159U6xaE3dzMnRO\nY/3t+QFkPlKfyS13pmanCrKIUC4M9fYmz3UxdnZdLjSlzyKKD7LNSlKWTAzolC78\n/riSM70OhBxNPg87RVmVVQlO7g6b5wgxVRGLiX9YvehKjfQ4z5n1x514vfRimqwL\njFeOOwxrJsaElkxwkaKcf+Fqe7TIs+s4LbRgVWRNfwmvQGz7tgrFXW9qaMMvrT4Y\nwh7t/FWNAgMBAAECgf9S/sYDUKiA2VriVDIDyWhjyqHhWHV2stPfkaUOwjbkF5PJ\nVdQ+PMeAuGPWCtXGvANj5YTOx9EMwu1eeC3kTkoMRYpmLi2SYegf/jGTpco6esi5\nJP4RwQUcuXXVZEWUfaeHY5ApZWNirNJLk0YrLf3MoklvGQaamZKRV74ur7uAhgFh\nmJl6pgSGshI54k/SZR0b05Izq44PxJ+FmLKLqQ0sjtJP3ACVYQpq3PX5jD/2Ic8C\nXvhdfSj1udA9aDHnStLZqL/i42GI8I26A+46PKb7SoEtmmpxm+iAmHMZ0sTrahrz\nuIFgvijRmSHO5RoFDfqcIMD2FyaVlV/S9uUg+UECgYEAzHa5T+lbty69dcPpu4J8\nua4iF89vDY4vXcu2co45ZhFUnnGli7fKTlFGbHJoxZN8aW/SgXP6eCMUhG5hbDYQ\nWoqTqht1yMwLOHYDxN7WY3Sf5em6nhtDPvagJnel2ZOc5MzBOL5tWcjl3z+TOaaL\nHVKyGtPMXpyN2W46GuyLd3ECgYEAyOoSdY1xb1vAAcXXL75iZ21lyZSzXK0fG3Z2\nCXJZyQX1/6Yl+iv0N0TQ3vueIPMytXgM8zT2IZ/vN4d283esJ5WFWwBRiRQK8rCT\nVSI3NNJCaR1DcF9tN2S9Kiuqf3kMmAHHnYcAx/tvg2A6g9efXYTwBBI4yKrow7Ct\n3d93Sd0CgYEArpw1ZalESgwAgLHuydOF8IxlUTA1Br6GdPOju/D509C5Exa66bbr\nbja6jaKnFxP9C44Tl7oUDMTooLAjQuZo0OnHcV5CGFkou+8NCPPE4uqWIyKX3K4r\nn3m/Cxri6AzH0B2MZYk6mZKXvS/t6y3vX/tfXsnBnorUGPupY5TfBgECgYBxl42a\nMr8Io8oZ9n4kOzKtoTdkUhNaeXLV9xLjYmiK9DjSMmDUYZdwzBJ/j6kmnfl0igxg\nUPg7qI36SjehjW6i7rF38uUmaFOMRPL3tiGaVqo/fdEMLpe0MtuUhR2fdpP9OTxf\nvt1dM7Yng/dxZS5wFGITGy5Jnf997F1QzTBHbQKBgAd8dPusik7NA4xy+UJkbWGk\nURNqjf3qxiAuHOveFgFBnmX+w0LEhDcQwLsf5k12ex+qtrhRHIAfzCAYrFxAQPI4\npIeVLXxoL26VcxuOfNvoeoAIvuEO6BzbV5q+2SjmDz1h1kdG+XDWi8KIa6C3CNx4\nA6uVzzVeQqE2t/sP0tFC\n-----END PRIVATE KEY-----\n",
+  "client_email": "leg-getter@kcg-legislator-report-card.iam.gserviceaccount.com",
+  "client_id": "105194150419919025874",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/leg-getter%40kcg-legislator-report-card.iam.gserviceaccount.com"
+}
