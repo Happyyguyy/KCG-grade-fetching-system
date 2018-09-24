@@ -1,0 +1,32 @@
+web_scraping for information:
+    same as before just import into sqlite3
+    take that info and push to gpread file
+
+
+build database again with sqlite3
+    so that it can be used cross platform
+        embed automatic push/pull to/from gspread
+
+    tables of separate assemblies
+    tables for grades for separate assemblies
+
+    use same id scheme: [assemb#][sen/rep][last[0:3]][district#]
+
+figure out how to do it with PILLOW
+    1. create config file
+        - to keep it flexible
+        includes:
+            a. colors
+            b. locations ([0,0] is top left)
+            c. fonts and sizes
+    2. figure out font shit
+
+create gui:
+    1. show data
+    2. input/update data from manual input
+    3. input/update data from spread
+    4. create single/batch grade sheet
+
+
+package it all up
+    - with sqlite3, tkinter, the font/s, gspread, os
