@@ -1,0 +1,13 @@
+{% extends "main.html" %}
+
+{% block table %}
+
+<table class="table">
+    <tr>
+        {% for header in headers %}
+            <th>{{header}}</th>
+        {% endfor%}
+    </tr>
+</table>
+
+{% endblock %}
