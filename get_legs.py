@@ -8,6 +8,7 @@ from pprint import pprint
 db = sqlite3.connect("db.db")
 cur = db.cursor()
 
+# Assembly constant
 assembly = 71
 
 main_html = "https://leg.colorado.gov"
@@ -35,7 +36,7 @@ def timer(func):
         t0 = time.clock()
         aa = func(*args, **kwargs)
         t1 = time.clock()
-        t_delta = t0-t1
+        t_delta = t0 - t1
         print(t_delta)
         return aa
     return wrapper
@@ -82,9 +83,6 @@ def dump_json(json_file, data):
     with open(json_file, "w") as file:
         file.write(json)
 
-@printer
-def into_db():
-    pass
 
 def split_name(data):
     """Splitting names..."""
@@ -131,9 +129,7 @@ def create_data_file():
     create_ids(data)
     pprint(data)
 
-    json_file = "leg_data.json"
     for each in data:
-        assembly = 71
         ID = each["id"]
         title = each["Title"]
         name = each["Name"]
@@ -152,7 +148,10 @@ def create_data_file():
             print("failed: ", ID)
         finally:
             pass
+
     # dump_json(json_file, data)
     db.commit()
+
+
 if __name__ == '__main__':
     create_data_file()
