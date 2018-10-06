@@ -9,7 +9,9 @@ db = sqlite3.connect("db.db")
 cur = db.cursor()
 
 # Assembly constant
-assembly = 71
+with open("assembly.config") as f:
+    num = f.read()
+    assembly = num
 
 main_html = "https://leg.colorado.gov"
 leg_page = main_html + "/legislators"
@@ -142,7 +144,8 @@ def create_data_file():
         first = each["first"]
         img_link = each["img_link"]
         try:
-            cur.execute(f"INSERT INTO legislators (ID,assembly,title,name,district,party,phone_num,email,leg_page,last,first,img_link) VALUES {(ID,assembly,title,name,district,party,phone_num,email,leg_page,last,first,img_link)}")
+            cur.execute(
+                f"INSERT INTO legislators (ID,assembly,title,name,district,party,phone_num,email,leg_page,last,first,img_link) VALUES {(ID,assembly,title,name,district,party,phone_num,email,leg_page,last,first,img_link)}")
         except Exception as e:
             print(e)
             print("failed: ", ID)

@@ -24,7 +24,9 @@ sen_sheet = file.worksheet("Senators")
 rep_sheet = file.worksheet("Representatives")
 
 # Assembly config
-assembly = 71
+with open("assembly.config") as f:
+    num = f.read()
+    assembly = num
 
 # Data Validation: list of columns for headings. If any don't exist will throw error
 try:
@@ -64,7 +66,8 @@ def format_data(data):
     for each in data:
         # print(each)
         item_dict = {}
-        item_dict["id"] = str(each["Assembly"]) + each["title"][:3].lower() + each["last"].lower() + str(each["District"])
+        item_dict["id"] = str(each["Assembly"]) + each["title"][:3].lower() + \
+            each["last"].lower() + str(each["District"])
         item_dict["donations"] = each["donations"]
         item_dict["Rhetoric"] = each["Rhetoric"]
         item_dict["Voting"] = each["Voting"]
@@ -76,9 +79,11 @@ def format_data(data):
 def save_grades(data):
     for row in data:
         try:
-            cur.execute(f'INSERT INTO grades (id, voting, rhetoric, donations, last_updated) VALUES {(row["id"],row["Voting"],row["Rhetoric"],row["donations"],row["last_updated"])}')
+            cur.execute(
+                f'INSERT INTO grades (id, voting, rhetoric, donations, last_updated) VALUES {(row["id"],row["Voting"],row["Rhetoric"],row["donations"],row["last_updated"])}')
         except sqlite3.IntegrityError:
-            cur.execute(f"UPDATE grades SET voting = '{row['Voting']}', rhetoric = '{row['Rhetoric']}', donations = '{row['donations']}', last_updated = '{row['last_updated']}' WHERE id = '{row['id']}';")
+            cur.execute(
+                f"UPDATE grades SET voting = '{row['Voting']}', rhetoric = '{row['Rhetoric']}', donations = '{row['donations']}', last_updated = '{row['last_updated']}' WHERE id = '{row['id']}';")
     db.commit()
     return data
 
@@ -140,19 +145,27 @@ def reformat_gspread(reset_key):
         rep_sheet.clear()
 
         # Insert new heading
-        sen_sheet.insert_row(("id", "Assembly", "title", "first", "last", "District", "Voting", "Rhetoric", "donations", "last_updated"))
-        rep_sheet.insert_row(("id", "Assembly", "title", "first", "last", "District", "Voting", "Rhetoric", "donations", "last_updated"))
+        sen_sheet.insert_row(("id", "Assembly", "title", "first", "last",
+                              "District", "Voting", "Rhetoric", "donations", "last_updated"))
+        rep_sheet.insert_row(("id", "Assembly", "title", "first", "last",
+                              "District", "Voting", "Rhetoric", "donations", "last_updated"))
 
         # Insert Senator data
-        cur.execute(f"SELECT id,assembly,title,first,last,district FROM legislators WHERE assembly = {assembly} AND title = 'Senator' ORDER BY last DESC")
+        cur.execute(
+            f"SELECT id,assembly,title,first,last,district FROM legislators WHERE assembly = {assembly} AND title = 'Senator' ORDER BY last DESC")
         for row in cur.fetchall():
             sen_sheet.insert_row(row, index=2)
             print(row)
             time.sleep(1)
 
         # Insert Representative data
-        cur.execute(f"SELECT id,assembly,title,first,last,district FROM legislators WHERE assembly = {assembly} AND title = 'Representative' ORDER BY last DESC")
+        cur.execute(
+            f"SELECT id,assembly,title,first,last,district FROM legislators WHERE assembly = {assembly} AND title = 'Representative' ORDER BY last DESC")
         for row in cur.fetchall():
             rep_sheet.insert_row(row, index=2)
             print(row)
             time.sleep(1)
+
+
+def new_data(id, title, first, last, district, voting="", rhetoric="", donations=""):
+    pass

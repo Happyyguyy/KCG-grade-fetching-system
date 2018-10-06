@@ -1,13 +1,8 @@
-import sqlite3
-
-db = sqlite3.connect("db.db")
-cur = db.cursor()
-
-cur.execute("DROP TABLE test")
-cur.execute("CREATE TABLE test (val1 INT PRIMARY KEY NOT NULL, val2 INT)")
-cur.execute("INSERT INTO test (val1,val2) VALUES ('e',4);")
-cur.execute("INSERT INTO test (val1,val2) VALUES (2,4);")
-db.commit()
-
-for row in cur.execute("SELECT * FROM test"):
-    print(row)
+button_dict = {
+    "new_entry", self.new_entry,
+    "show_archive", self.show_archive,
+    "create_all", self.create_all,
+    "create_selected", self.create_selected,
+    "update_legs", self.update_legs,
+    "update_grades", self.update_grades
+}
