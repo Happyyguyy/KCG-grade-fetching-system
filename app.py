@@ -423,7 +423,7 @@ try:
                     filename = f"{last}_{first}_{assembly}{title[:3]}{district}_{last_updated.replace('/', '_')}.jpg".replace(
                         "\"", "")
                     # Save file
-                    # card.save(folder_path + filename)
+                    card.save(folder_path + filename)
             alert.destroy()
             for each in self.selection_list:
                 each.deselect()
@@ -431,17 +431,16 @@ try:
                 "Done", f"Report cards generated in: {folder_path}")
 
 
-            # TODO: create_selected: save
-
-
         def update_legs(self):
             print("update_legs")
             get_legs.create_data_file()
+            # TODO: update on gspread
             pass
 
         def update_grades(self):
             print("update_grades")
             spreadsheets.import_data()
+
             pass
 
         def new_card(self, id):
@@ -472,122 +471,57 @@ try:
                 self.entry_edit()
             else:
                 self.data = dict.fromkeys(("id", "assembly", "title", "name", "district", "party", "phone_num", "email",
-                                           "leg_page", "last", "first", "img_link", "", "rhetoric", "donations", "last_updated"), "")
+                                           "leg_page", "last", "first", "img_link", "voting", "rhetoric", "donations", "last_updated"), "")
                 self.entry_new()
 
         def entry_new(self):
+
+            # \b(.+) = Label\((.+), text=(.+)\)\s+\1.grid\(row=(\d+), column=(\d+).+\s+(self.+) = Entry\(\2(\)|, width=10\))\s+\6.+\(\d, (.+)\)\s+\6.+\(row=\4,.+
 
             editing = Toplevel(self.master, padx=5, pady=5)
             self.editing = editing
             editing.resizable(width=False, height=False)
             editing.title("New Data")
 
-            id_label = Label(editing, text="ID:")
-            id_label.grid(row=0, column=0, stick=E)
+            self.id = self.btn_label(editing, 0, 0, "ID:", self.data["id"])
+            self.id.config(state="readonly")
+            # id_label = Label(editing, text="ID:")
+            # id_label.grid(row=0, column=0, stick=E)
+            #
+            # self.id = Entry(editing, bd=1, state=DISABLED, text="")
+            # # id.insert(0, "")
+            # # id.config(state="readonly")
+            # self.id.grid(row=0, column=1, stick=NSEW)
 
-            self.id = Entry(editing, bd=1, state=DISABLED, text="")
-            # id.insert(0, "")
-            # id.config(state="readonly")
-            self.id.grid(row=0, column=1, stick=NSEW)
-
-            assembly_label = Label(editing, text="Assembly:")
-            assembly_label.grid(row=1, column=0, stick=E)
-
-            self.assembly = Entry(editing)
-            self.assembly.insert(0, self.data["assembly"])
-            self.assembly.grid(row=1, column=1)
-
-            self.party_label = Label(editing, text="Party:")
-            self.party_label.grid(row=2, column=0, stick=E)
-
-            self.party = Entry(editing)
-            self.party.insert(0, self.data["party"])
-            self.party.grid(row=2, column=1)
-
-            title_label = Label(editing, text="Title:")
-            title_label.grid(row=3, column=0, stick=E)
-
-            self.title = Entry(editing)
-            self.title.insert(0, self.data["title"])
-            self.title.grid(row=3, column=1)
-
-            first_label = Label(editing, text="First:")
-            first_label.grid(row=4, column=0, stick=E)
-
-            self.first = Entry(editing)
-            self.first.insert(0, self.data["first"])
-            self.first.grid(row=4, column=1)
-
-            last_label = Label(editing, text="Last:")
-            last_label.grid(row=5, column=0, stick=E)
-
-            self.last = Entry(editing)
-            self.last.insert(0, self.data["last"])
-            self.last.grid(row=5, column=1)
-
-            district_label = Label(editing, text="District:")
-            district_label.grid(row=6, column=0, stick=E)
-
-            self.district = Entry(editing)
-            self.district.insert(0, self.data["district"])
-            self.district.grid(row=6, column=1)
-
-            phone_num_label = Label(editing, text="Phone #:")
-            phone_num_label.grid(row=7, column=0, stick=E)
-
-            self.phone_num = Entry(editing)
-            self.phone_num.insert(0, self.data["phone_num"])
-            self.phone_num.grid(row=7, column=1)
-
-            email_label = Label(editing, text="Email:")
-            email_label.grid(row=8, column=0, stick=E)
-
-            self.email = Entry(editing)
-            self.email.insert(0, self.data["email"])
-            self.email.grid(row=8, column=1)
-
-            leg_page_label = Label(editing, text="Webpage:")
-            leg_page_label.grid(row=9, column=0, stick=E)
-
-            self.leg_page = Entry(editing)
-            self.leg_page.insert(0, self.data["leg_page"])
-            self.leg_page.grid(row=9, column=1)
-
-            img_link_label = Label(editing, text="Img Link:")
-            img_link_label.grid(row=10, column=0, stick=E)
-
-            self.img_link = Entry(editing)
-            self.img_link.insert(0, self.data["img_link"])
-            self.img_link.grid(row=10, column=1)
-
-            voting_label = Label(editing, text=":")
-            voting_label.grid(row=0, column=3, stick=E)
-
-            self.voting = Entry(editing, width=10)
-            self.voting.insert(0, self.data[""])
-            self.voting.grid(row=0, column=4)
-
-            rhetoric_label = Label(editing, text="Rhetoric:")
-            rhetoric_label.grid(row=1, column=3, stick=E)
-
-            self.rhetoric = Entry(editing, width=10)
-            self.rhetoric.insert(0, self.data["rhetoric"])
-            self.rhetoric.grid(row=1, column=4)
-
-            donations_label = Label(editing, text="Donations:")
-            donations_label.grid(row=2, column=3, sticky=E)
-
-            self.donations = Entry(editing, width=10)
-            self.donations.insert(0, self.data["donations"])
-            self.donations.grid(row=2, column=4)
-
+            self.assembly = self.btn_label(
+                editing, 1, 0, "Assembly:", self.data["assembly"])
+            self.party = self.btn_label(
+                editing, 2, 0, "Party:", self.data["party"])
+            self.title = self.btn_label(
+                editing, 3, 0, "Title:", self.data["title"])
+            self.first = self.btn_label(
+                editing, 4, 0, "First:", self.data["first"])
+            self.last = self.btn_label(
+                editing, 5, 0, "Last:", self.data["last"])
+            self.district = self.btn_label(
+                editing, 6, 0, "District:", self.data["district"])
+            self.phone_num = self.btn_label(
+                editing, 7, 0, "Phone #:", self.data["phone_num"])
+            self.email = self.btn_label(
+                editing, 8, 0, "Email:", self.data["email"])
+            self.leg_page = self.btn_label(
+                editing, 9, 0, "Webpage:", self.data["leg_page"])
+            self.img_link = self.btn_label(
+                editing, 10, 0, "Img Link:", self.data["img_link"])
+            self.voting = self.btn_label(
+                editing, 0, 3, "Voting:", self.data["voting"], 10)
+            self.rhetoric = self.btn_label(
+                editing, 1, 3, "Rhetoric:", self.data["rhetoric"], 10)
+            self.donations = self.btn_label(
+                editing, 2, 3, "Donations:", self.data["donations"], 10)
             date = time.strftime("%m/%d/%Y")
-            last_updated_label = Label(editing, text="Last Updated:")
-            last_updated_label.grid(row=3, column=3, stick=E)
-
-            self.last_updated = Entry(editing, width=10)
-            self.last_updated.insert(0, date)
-            self.last_updated.grid(row=3, column=4)
+            self.last_updated = self.btn_label(
+                editing, 3, 3, "Last Updated:", date, 10)
 
             def reset_entry():
                 self.entry_new()
@@ -614,139 +548,78 @@ try:
             editing.resizable(width=False, height=False)
             editing.title("Edit Data")
 
-            id_label = Label(editing, text="ID:")
-            id_label.grid(row=0, column=0, stick=E)
+            self.id = self.btn_label(editing, 0, 0, "ID:", self.data["id"])
+            self.id.config(state=DISABLED)
 
-            self.id = Label(editing, bd=1, relief=SUNKEN,
-                            text=self.data["id"], anchor=W)
-            # id.insert(0, self.data["id"])
-            # id.config(state="readonly")
-            self.id.grid(row=0, column=1, stick=NSEW)
-
-            assembly_label = Label(editing, text="Assembly:")
-            assembly_label.grid(row=1, column=0, stick=E)
-
-            self.assembly = Entry(editing)
-            self.assembly.insert(0, self.data["assembly"])
-            self.assembly.grid(row=1, column=1)
-
-            self.party_label = Label(editing, text="Party:")
-            self.party_label.grid(row=2, column=0, stick=E)
-
-            self.party = Entry(editing)
-            self.party.insert(0, self.data["party"])
-            self.party.grid(row=2, column=1)
-
-            title_label = Label(editing, text="Title:")
-            title_label.grid(row=3, column=0, stick=E)
-
-            self.title = Entry(editing)
-            self.title.insert(0, self.data["title"])
-            self.title.grid(row=3, column=1)
-
-            first_label = Label(editing, text="First:")
-            first_label.grid(row=4, column=0, stick=E)
-
-            self.first = Entry(editing)
-            self.first.insert(0, self.data["first"])
-            self.first.grid(row=4, column=1)
-
-            last_label = Label(editing, text="Last:")
-            last_label.grid(row=5, column=0, stick=E)
-
-            self.last = Entry(editing)
-            self.last.insert(0, self.data["last"])
-            self.last.grid(row=5, column=1)
-
-            district_label = Label(editing, text="District:")
-            district_label.grid(row=6, column=0, stick=E)
-
-            self.district = Entry(editing)
-            self.district.insert(0, self.data["district"])
-            self.district.grid(row=6, column=1)
-
-            phone_num_label = Label(editing, text="Phone #:")
-            phone_num_label.grid(row=7, column=0, stick=E)
-
-            self.phone_num = Entry(editing)
-            self.phone_num.insert(0, self.data["phone_num"])
-            self.phone_num.grid(row=7, column=1)
-
-            email_label = Label(editing, text="Email:")
-            email_label.grid(row=8, column=0, stick=E)
-
-            self.email = Entry(editing)
-            self.email.insert(0, self.data["email"])
-            self.email.grid(row=8, column=1)
-
-            leg_page_label = Label(editing, text="Webpage:")
-            leg_page_label.grid(row=9, column=0, stick=E)
-
-            self.leg_page = Entry(editing)
-            self.leg_page.insert(0, self.data["leg_page"])
-            self.leg_page.grid(row=9, column=1)
-
-            img_link_label = Label(editing, text="Img Link:")
-            img_link_label.grid(row=10, column=0, stick=E)
-
-            self.img_link = Entry(editing)
-            self.img_link.insert(0, self.data["img_link"])
-            self.img_link.grid(row=10, column=1)
-
-            voting_label = Label(editing, text=":")
-            voting_label.grid(row=0, column=3, stick=E)
-
-            self.voting = Entry(editing, width=10)
-            self.voting.insert(0, self.data[""])
-            self.voting.grid(row=0, column=4)
-
-            rhetoric_label = Label(editing, text="Rhetoric:")
-            rhetoric_label.grid(row=1, column=3, stick=E)
-
-            self.rhetoric = Entry(editing, width=10)
-            self.rhetoric.insert(0, self.data["rhetoric"])
-            self.rhetoric.grid(row=1, column=4)
-
-            donations_label = Label(editing, text="Donations:")
-            donations_label.grid(row=2, column=3, sticky=E)
-
-            self.donations = Entry(editing, width=10)
-            self.donations.insert(0, self.data["donations"])
-            self.donations.grid(row=2, column=4)
-
-            last_updated_label = Label(editing, text="Last Updated:")
-            last_updated_label.grid(row=3, column=3, stick=E)
-
-            self.last_updated = Entry(editing, width=10)
-            self.last_updated.insert(0, self.data["last_updated"])
+            self.assembly = self.btn_label(
+                editing, 1, 0, "Assembly:", self.data["assembly"])
+            self.party = self.btn_label(
+                editing, 2, 0, "Party:", self.data["party"])
+            self.title = self.btn_label(
+                editing, 3, 0, "Title:", self.data["title"])
+            self.first = self.btn_label(
+                editing, 4, 0, "First:", self.data["first"])
+            self.last = self.btn_label(
+                editing, 5, 0, "Last:", self.data["last"])
+            self.district = self.btn_label(
+                editing, 6, 0, "District:", self.data["district"])
+            self.phone_num = self.btn_label(
+                editing, 7, 0, "Phone #:", self.data["phone_num"])
+            self.email = self.btn_label(
+                editing, 8, 0, "Email:", self.data["email"])
+            self.leg_page = self.btn_label(
+                editing, 9, 0, "Webpage:", self.data["leg_page"])
+            self.img_link = self.btn_label(
+                editing, 10, 0, "Img Link:", self.data["img_link"])
+            self.voting = self.btn_label(
+                editing, 0, 3, "Voting:", self.data["voting"], 10)
+            self.rhetoric = self.btn_label(
+                editing, 1, 3, "Rhetoric:", self.data["rhetoric"], 10)
+            self.donations = self.btn_label(
+                editing, 2, 3, "Donations:", self.data["donations"], 10)
+            self.last_updated = self.btn_label(
+                editing, 3, 3, "Last Updated:", self.data["last_updated"], 10)
             self.last_updated.config(state="readonly")
-            self.last_updated.grid(row=3, column=4)
 
             reset_btn = Button(editing, text="Reset", command=self.reset_entry)
-            reset_btn.grid(row=4, column=3, columnspan=2,
+            reset_btn.grid(row=4, column=3,
                            rowspan=2, stick=NSEW, padx=5, pady=2)
 
             update_btn = Button(
                 editing, text="Update", command=self.update_entry, bg="lightblue")
-            update_btn.grid(row=6, column=3, columnspan=2,
+            update_btn.grid(row=6, column=3,
                             rowspan=2, stick=NSEW, padx=5, pady=2)
 
             delete_btn = Button(
                 editing, text="Delete", command=lambda: self.delete_entry(), bg="red")
-            delete_btn.grid(row=8, column=3, rowspan=2,
-                            stick=NSEW, padx=5, pady=2)
+            delete_btn.grid(row=8, column=3,
+                            stick=NSEW, padx=5, pady=1)
 
             close_btn = Button(editing, text="Close w/o Changes",
                                command=editing.destroy)
-            close_btn.grid(row=8, column=4, rowspan=2,
-                           stick=NSEW, padx=1, pady=2)
+            close_btn.grid(row=9, column=3,
+                           stick=NSEW, padx=5, pady=1)
+
+        def btn_label(self, master, row, column, text, default, width=20):
+
+            frame = Frame(master)
+            frame.grid(row=row, column=column, stick=E)
+
+            _label = Label(frame, text=text)
+            _label.grid(row=0, column=0, sticky=E)
+
+            entry = Entry(frame, width=width)
+            entry.insert(0, default)
+            entry.grid(row=0, column=1, stick=W)
+
+            return entry
 
         def get_data(self, id):
             cur.execute(
-                f"SELECT legislators.id, assembly, title, name, district, party, phone_num, email, leg_page, last, first, img_link, , rhetoric, donations,last_updated FROM legislators INNER JOIN grades ON legislators.id = grades.id WHERE legislators.id='{id}';")
+                f"SELECT legislators.id, assembly, title, name, district, party, phone_num, email, leg_page, last, first, img_link, voting, rhetoric, donations,last_updated FROM legislators INNER JOIN grades ON legislators.id = grades.id WHERE legislators.id='{id}';")
 
             data = dict(zip(("id", "assembly", "title", "name", "district", "party", "phone_num", "email", "leg_page",
-                             "last", "first", "img_link", "", "rhetoric", "donations", "last_updated"), cur.fetchone()))
+                             "last", "first", "img_link", "voting", "rhetoric", "donations", "last_updated"), cur.fetchone()))
             return data  # Data in dictionary
 
 
@@ -844,9 +717,9 @@ try:
                 raise KeyError("Incorrect 'assembly' Format")
             self.assembly.config(bg="white")
 
-            if not grade_regex.match(self.data[""]):
+            if not grade_regex.match(self.data["voting"]):
                 messagebox.showwarning(
-                    "Wrong Format", " must be 'A', 'B', 'C', 'D', or 'F'", parent=self.editing)
+                    "Wrong Format", "Voting must be 'A', 'B', 'C', 'D', or 'F'", parent=self.editing)
                 self.voting.config(bg="pink")
                 raise KeyError("Incorrect '' Format")
             self.voting.config(bg="white")
@@ -1048,9 +921,6 @@ try:
                 row += 1
 
 
-
-
-    fsaff
     if __name__ == '__main__':
         root = Tk()
         main = Main(root, root)
