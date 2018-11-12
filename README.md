@@ -4,7 +4,7 @@ System built on python tkinter and sqlite3 to handle kcg grade update requests
 
 __Note:__ doesn't include signin token due to security 
 
-__Also Note:__ heavily considering abandoning the python backend and reconfiguring for a complete cloud based solution (ie. cloud database with google sheets, or a cloud non-sql database by means of google firebase)
+__Also Note:__ heavily considering abandoning the local sqlite3 database and reconfiguring for a complete cloud-based solution (ie. cloud database with google sheets, or a cloud non-sql database by means of google firebase)
 
 ### Quick Rundown of modules and methods:
     spreadsheets:
